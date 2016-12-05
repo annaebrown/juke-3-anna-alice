@@ -8,7 +8,8 @@ export default class NewPlaylistContainer extends React.Component {
 		super(props);
 
 		this.state = {
-			inputValue: ''
+			inputValue: '',
+			dirty : false
 		}
 
 		this.handleChange = this.handleChange.bind(this);
@@ -16,7 +17,10 @@ export default class NewPlaylistContainer extends React.Component {
 	}
 
 	handleChange(event) {
-		this.setState({inputValue : event.target.value});
+		this.setState({
+			inputValue : event.target.value,
+			dirty : true
+		});
 	}
 
 	handleSubmit(event) {
@@ -27,9 +31,11 @@ export default class NewPlaylistContainer extends React.Component {
 
 
 	render() {
+		let alertMessage;
+		if (this.state.inputValue.length > 16 || !this.state.inputValue && this.state.dirty) alertMessage = "Please enter valid playlist name!";
 		return(
 		<div>
-		<NewPlaylist onSubmit={this.handleSubmit} onChange={this.handleChange} inputValue = {this.state.inputValue}/>
+		<NewPlaylist onSubmit={this.handleSubmit} onChange={this.handleChange} inputValue = {this.state.inputValue} alertMessage = {alertMessage}/>
 		</div>
 		)
 	}

@@ -28878,7 +28878,7 @@
 	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-			value: true
+									value: true
 	});
 	
 	var _react = __webpack_require__(1);
@@ -28889,50 +28889,55 @@
 	
 	var NewPlaylist = function NewPlaylist(props) {
 	
-			return _react2.default.createElement(
-					"div",
-					{ className: "well" },
-					_react2.default.createElement(
-							"form",
-							{ className: "form-horizontal", onSubmit: props.onSubmit },
-							_react2.default.createElement(
-									"fieldset",
-									null,
-									_react2.default.createElement(
-											"legend",
-											null,
-											"New Playlist"
-									),
-									_react2.default.createElement(
-											"div",
-											{ className: "form-group" },
-											_react2.default.createElement(
-													"label",
-													{ className: "col-xs-2 control-label" },
-													"Name"
-											),
-											_react2.default.createElement(
-													"div",
-													{ className: "col-xs-10" },
-													_react2.default.createElement("input", { className: "form-control", type: "text", onChange: props.onChange, value: props.inputValue })
-											)
-									),
-									_react2.default.createElement(
-											"div",
-											{ className: "form-group" },
-											_react2.default.createElement(
-													"div",
-													{ className: "col-xs-10 col-xs-offset-2" },
-													_react2.default.createElement(
-															"button",
-															{ type: "submit", className: "btn btn-success" },
-															"Create Playlist"
-													)
-											)
-									)
-							)
-					)
-			);
+									return _react2.default.createElement(
+																	"div",
+																	{ className: "well" },
+																	_react2.default.createElement(
+																									"form",
+																									{ className: "form-horizontal", onSubmit: props.onSubmit },
+																									_react2.default.createElement(
+																																	"fieldset",
+																																	null,
+																																	_react2.default.createElement(
+																																									"legend",
+																																									null,
+																																									"New Playlist"
+																																	),
+																																	_react2.default.createElement(
+																																									"div",
+																																									{ className: "form-group" },
+																																									_react2.default.createElement(
+																																																	"label",
+																																																	{ className: "col-xs-2 control-label" },
+																																																	"Name"
+																																									),
+																																									_react2.default.createElement(
+																																																	"div",
+																																																	{ className: "col-xs-10" },
+																																																	props.alertMessage && _react2.default.createElement(
+																																																									"div",
+																																																									{ className: "alert alert-warning" },
+																																																									props.alertMessage
+																																																	),
+																																																	_react2.default.createElement("input", { className: "form-control", type: "text", onChange: props.onChange, value: props.inputValue })
+																																									)
+																																	),
+																																	_react2.default.createElement(
+																																									"div",
+																																									{ className: "form-group" },
+																																									_react2.default.createElement(
+																																																	"div",
+																																																	{ className: "col-xs-10 col-xs-offset-2" },
+																																																	_react2.default.createElement(
+																																																									"button",
+																																																									{ type: "submit", disabled: props.inputValue.length > 16 || !props.inputValue, className: "btn btn-success" },
+																																																									"Create Playlist"
+																																																	)
+																																									)
+																																	)
+																									)
+																	)
+									);
 	};
 	
 	exports.default = NewPlaylist;
@@ -28974,7 +28979,8 @@
 			var _this = _possibleConstructorReturn(this, (NewPlaylistContainer.__proto__ || Object.getPrototypeOf(NewPlaylistContainer)).call(this, props));
 	
 			_this.state = {
-				inputValue: ''
+				inputValue: '',
+				dirty: false
 			};
 	
 			_this.handleChange = _this.handleChange.bind(_this);
@@ -28985,7 +28991,10 @@
 		_createClass(NewPlaylistContainer, [{
 			key: 'handleChange',
 			value: function handleChange(event) {
-				this.setState({ inputValue: event.target.value });
+				this.setState({
+					inputValue: event.target.value,
+					dirty: true
+				});
 			}
 		}, {
 			key: 'handleSubmit',
@@ -28997,10 +29006,12 @@
 		}, {
 			key: 'render',
 			value: function render() {
+				var alertMessage = void 0;
+				if (this.state.inputValue.length > 16 || !this.state.inputValue && this.state.dirty) alertMessage = "Please enter valid playlist name!";
 				return _react2.default.createElement(
 					'div',
 					null,
-					_react2.default.createElement(_NewPlaylist2.default, { onSubmit: this.handleSubmit, onChange: this.handleChange, inputValue: this.state.inputValue })
+					_react2.default.createElement(_NewPlaylist2.default, { onSubmit: this.handleSubmit, onChange: this.handleChange, inputValue: this.state.inputValue, alertMessage: alertMessage })
 				);
 			}
 		}]);
