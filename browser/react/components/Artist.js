@@ -10,6 +10,8 @@ class Artist extends React.Component {
     selectArtist(artistId);
   }
 
+  
+
   render () {
 
     const artist = this.props.selectedArtist;
