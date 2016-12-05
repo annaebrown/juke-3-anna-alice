@@ -1,5 +1,6 @@
 import React from 'react';
 import NewPlaylist from '../components/NewPlaylist';
+import axios from 'axios';
 
 
 export default class NewPlaylistContainer extends React.Component {
@@ -24,10 +25,12 @@ export default class NewPlaylistContainer extends React.Component {
 	}
 
 	handleSubmit(event) {
-		console.log(this.state.inputValue);
+		let playlist = this.state.inputValue;
+		this.props.makeNewPlaylist(playlist);
 		event.preventDefault();
 		this.setState({inputValue : ''})
 	}
+
 
 
 	render() {
